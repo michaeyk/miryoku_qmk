@@ -7,6 +7,11 @@
 
 #define MASTER_LEFT          // left half is always master
 
+// NOTE: PICO_XOSC_STARTUP_DELAY_MULTIPLIER (crystal startup delay for reliable
+// cold-boot USB enumeration) is set as a -D flag in custom_rules.mk, NOT here.
+// The pico-sdk's xosc.c never includes QMK's config.h, so a #define here is
+// invisible to the code that actually reads it.
+
 // Press both Shift home-row mods together to turn on Caps Word. NOTE: QMK's
 // built-in BOTH_SHIFTS_TURNS_ON_CAPS_WORD does NOT work with Miryoku, because
 // Miryoku uses same-handed mods on both halves: the right index is LSFT_T(KC_J),
