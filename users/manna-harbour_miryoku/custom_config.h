@@ -5,3 +5,18 @@
 
 #pragma once
 
+#define MASTER_LEFT          // left half is always master
+
+// Press both Shift home-row mods together to turn on Caps Word. NOTE: QMK's
+// built-in BOTH_SHIFTS_TURNS_ON_CAPS_WORD does NOT work with Miryoku, because
+// Miryoku uses same-handed mods on both halves: the right index is LSFT_T(KC_J),
+// not RSFT_T. Holding both shifts only ever sets the Left Shift bit, so
+// get_mods() never equals MOD_MASK_SHIFT (LSFT|RSFT) and the feature can't fire.
+// It's implemented manually in process_record_user() in manna-harbour_miryoku.c
+// by counting held shift home-row mods. Tap a word-breaking key to turn it off.
+
+// Resolve Shift home-row mods as hold when the other key is released first,
+// instead of waiting for the full tapping term. Restricted to Shift via the
+// per-key function in manna-harbour_miryoku.c so same-hand rolls (e.g. "fa")
+// still tap; intentional capitals (release alpha before Shift) still hold.
+#define PERMISSIVE_HOLD_PER_KEY
